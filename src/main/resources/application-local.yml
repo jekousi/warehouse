@@ -1,0 +1,25 @@
+application:
+  setting:
+    sessionCookieSecure: true
+    sessionCookieHttpOnly: true
+    profile: local
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhouse:25433/warehouse
+    username: warehouse
+    password: password
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: calsspath*:/mapper/*.xml
+  type-aliases-package: com.pluto.common.alias
+  type-handlers-package: com.pluto.common.controller
+pagehelper:
+  helperDialect: postgresql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+logging.level.com.pluto.repository: debug

@@ -1,0 +1,223 @@
+/* ---------------------------------------------------------------------- */
+/* --------------------------共通---------------------------------- */
+/* ---------------------------------------------------------------------- */
+
+body {
+    margin: 0px;
+    padding: 0px;
+    min-width: 980px;
+    font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
+#wrapper {
+    overflow: hidden;
+    background-color: #f3f3f3;
+}
+
+.headWrapper {
+    width: 100%;
+    height: 47px;
+/*  background-color: #FFFFFF; */
+/*  background-color: rgba(255,255,255,0.9); */
+    margin: 0px;
+    padding: 0px;
+/*  position: fixed; */
+/*  opacity: 0.9; */
+/*  z-index: 999; */
+}
+
+.bodyWrapper {
+    height: 45px;
+	width: 100%;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.headLineWrapper {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    height: 3px;
+    border: none;
+    /* border-top: 3px solid #DC143C; */
+    border-top: 3px solid #660033 ;
+}
+
+.footLineWrapper {
+    width: 100%;
+    margin: 40px 0px 10px 0px;
+    padding: 0px;
+    height: 3px;
+    border: none;
+    /* border-top: 3px solid #DC143C; */
+    border-top: 3px solid #191970 ;
+}
+
+.footWrapper {
+    width: 100%;
+    height: 40px;
+    /* background-color: #CCCCFF; */
+    /* background-color: #444444; */
+    padding: 0px;
+    margin: 0 auto;
+}
+
+.mainContainer {
+	width: 100%;
+	text-align: center;
+}
+
+.headerContainer {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.block-center {
+	margin-left: auto;
+    margin-right: auto;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.label-color {
+	color: #6A5ACD;
+}
+
+.logoImg {
+	margin: 5px 0px 0px 0px;
+	padding : 0px;
+}
+
+.logoDiv {
+	height: 100%;
+    width: 150px;
+    margin: 0px 0px 0px 30px;
+    padding: 0px;
+}
+
+.loginDiv {
+    height: 100%;
+    width: 100px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.loginNameDiv {
+    height: 100%;
+    width: 110px;
+    margin: 13px 10px 0px 0px;
+    padding: 0px;
+}
+
+.menuDiv {
+	margin: 0px 20px 0px 0px;
+	height: 47px;
+}
+
+.loginDiv {
+    margin: 0px 50px 0px 0px;
+    height: 47px;
+}
+
+#topMenuDiv ul {
+    margin: 0px;
+}
+
+#topMenuDiv ul li {
+    float: left;
+    height: 47px;
+    width: 120px;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    list-style-type: none;
+}
+
+#topMenuDiv ul li:hover{
+    background-color: #5882FA;
+}
+
+#topMenuDiv ul li a{
+    display: inline-block;
+    width: 100%;
+    margin: 18px 0px 0px 0px;
+    padding: 0px;
+    line-height: 100%;
+    font-size: 16px;
+    /* color:#0000FF; */
+    color: #336633;
+    text-decoration: none;
+}
+
+#topMenuDiv ul li:hover ul{
+    display: block;
+}
+
+#topMenuDiv ul li a:hover{
+    color: white;
+    font-weight: bold;
+}
+
+#topMenuDiv ul li ul{
+    position: absolute;
+    display: none;
+    background-color: #FFFFCC;
+    margin: 0px;
+    padding: 0px;
+}
+
+#topMenuDiv ul li ul li{
+    height: 47px;
+    float: none;
+}
+
+#topMenuDiv ul li ul li a{
+    height: 47px;
+    line-height: 47px;
+    font-size:16px;
+    color:#000000;
+    padding:1px 0px 0px 0px;
+    border-top:1px solid #9D9D9D;
+}
+
+button.blueBtn {
+    color: white;
+    background: #4C8FFB;
+    border: 1px #3079ED solid;
+    box-shadow: inset 0 1px 0 #80B0FB;
+}
+
+button.blueBtn:hover {
+    border: 1px #2F5BB7 solid;
+    box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
+    background: #3F83F1;
+}
+
+button.blueBtn:active {
+    box-shadow: inset 0 2px 5px #2370FE;   
+}
+
+/* ---------------------------------------------------------------------- */
+/* --------------------------ログイン-------------------------------------- */
+/* ---------------------------------------------------------------------- */
+
+.loginBody {
+    background-color: #f3f3f3;
+}
+
+.loginMain {
+    font-size: 16px;
+    margin-top: 150px;
+}
+
+.login-width {
+    width: 300px;
+}
+

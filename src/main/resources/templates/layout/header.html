@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <header layout:fragment="header">
+        <div class="logoDiv float-left">
+            <img class="logoImg" src="pic/pluto.png"/>
+        </div>
+        <div class="loginDiv float-right">
+            <button class="blueBtn" style="margin-top:13px;" accesskey="i">ログイン(I)</button>
+        </div>
+        <div class="loginNameDiv float-right">
+            <label id="loginName" style="font-size:14px;">藤田　竜太太郎</label>
+        </div>
+        <div id="topMenuDiv" class="menuDiv float-right">
+            <ul>
+                <li><a id="attendance" href="javascript:void(0);" onclick ="doAttendance();" accesskey="A">勤怠管理(A)</a></li>
+                <!-- 
+                <li style="">
+                    <a href="#">企業情報</a>
+                    <ul>
+                        <li style="margin-top:5px;"><a href="javascript:void(0);" onclick ="goCompPhil();">企業理念</a></li>
+                        <li><a href="javascript:void(0);" onclick ="goGreeting();">代表挨拶</a></li>
+                        <li><a href="javascript:void(0);" onclick ="goCompProfile();">会社概要</a></li>
+                        <li><a href="javascript:void(0);" onclick ="goHistory();">沿革</a></li>
+                        <li><a href="javascript:void(0);" onclick ="goIntroOrg();" style="border-bottom:1px solid #9D9D9D;">組織紹介</a></li>
+                    </ul>
+                </li>
+                 -->
+            </ul>
+        </div>
+    </header>
+</body>
+</html>

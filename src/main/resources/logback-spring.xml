@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+
+    <!-- 2.(operation.log)-->
+    <appender name="operLog"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>C:\\Users\\jekou\\Desktop\\operation.log</file>
+            <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>C:\\Users\\jekou\\Desktop\\operation.log.%d{yyyy-MM-dd}
+                </fileNamePattern>
+            </rollingPolicy>
+            <encoder>
+                <charset>UTF-8</charset>
+                <pattern><![CDATA[[%d{yyyy/MM/ddHH:mm:ss}][%t][%p][%class{0}] %ex - %msg%n]]></pattern>
+            </encoder>
+    </appender>
+
+    <!-- Application Loggers -->
+    <!-- 2.(operation.log)-->
+    <logger name="com.pluto.warehouse.controller">
+        <level value="info"/>
+        <appender-ref ref="operLog"/>
+    </logger>
+ 
+
+
+  
+    <root level="info">
+    </root>
+</configuration>

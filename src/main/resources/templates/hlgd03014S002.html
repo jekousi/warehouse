@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{counseling2layouts/layout_no_navi}">
+
+<head>
+	<script type="text/javascript" src="js/jquery-3.2.1.slim.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<title>面談予約状況確認画面</title>
+    <script type="text/javascript" th:src="@{/js/year-select.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/counseling2js/hlgd03014S002.js}" charset="UTF-8"></script>
+    <link rel='stylesheet' media='screen and (max-width: 970px)' th:href="@{/counseling2css/stylesp.css}" />
+</head>
+
+<body id="HLGD03014S002" class="fsz-default u-bgColor">
+<header layout:fragment="header_no_navi" id="header">
+    <div layout:replace="~{counseling2layouts/header_no_navi::header_no_navi(viewText = '面談予約状況確認画面')}"></div>
+</header>
+    <div layout:fragment="content">
+   	<form name="actionForm">
+
+   	<div class="l-container">
+	    <div class="l-col titleBox" id="search-header">
+	      <div class="l-col__inner">
+	        <h2 class="c-contentTitleBorder u-mt--16">面談予約状況確認</h2>
+	      </div>
+	      <div class="c-buttonGroup c-buttonGroup--flex">
+	        <a href="#" class="c-secondaryButton u-mt--16">
+	          <span>TOPへ</span>
+	        </a>
+	      </div>
+	    </div>
+
+      <div class="p-contentBlock u-mt--16">
+        <div class="p-contentBlock__inner l-contentWidth u-mt--8">
+          <div class="" style="" th:object="${hlgd03014S002DisplayDto}">
+            <label>当日の面談をスムーズに行うため、連絡先、事前問診の入力をお願いします。</label>
+            <table class="c-table u-mt--16">
+              <tr>
+                <th>日時</th>
+              <td>
+                <div class="c-formContentBlock--flex">
+                  <label>[[${hlgd03014S002DisplayDto.implementationDateTime}]]</label>
+                  <div class="marginT_sp">
+                    <a th:href="@{${URI_COUNSELING2}+${URI_HLGD03014S001}}" class="btn-info marginL_10" style="padding:4px;">
+                    日程変更
+                    </a>
+                  </div>
+                </div>
+              </td>
+              </tr>
+              <tr>
+                <th>場所</th>
+                <td>
+                  <label>[[${hlgd03014S002DisplayDto.placeName}]]</label><br>
+                  <label class="marginL_20">※予約完了メールを確認していただき、事前準備をお願いいたします。</label>
+                </td>
+              </tr>
+              <tr>
+                <th>資格確認</th>
+                <td>
+                  <!-- code -->
+                  <div class="c-formContentBlock--flex">
+                    <label th:if="${hlgd03014S002DisplayDto.qualificationsFlg == '1'}">入力済</label>
+                    <div class="marginT_sp">
+                      <a th:href="@{${URI_COUNSELING2}+${URI_HLGD03014S001}}" class="btn btn-info btn-sm marginL_10" style="padding:4px;">
+                      <a th:if="${hlgd03014S002DisplayDto.qualificationsFlg != '1'}" th:href="@{${URI_COUNSELING1}+${URI_HLGD03004S023}(targetPersonId=${hlgd03014S002DisplayDto.targetPersonId})}"
+                      class="btn-info" style="padding:4px;">
+                      資格確認
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>連絡先</th>
+                <td>
+                  <!-- code -->
+                  <div class="c-formContentBlock--flex">
+                    <label th:if="${hlgd03014S002DisplayDto.contactInformationFlg == '1'}">入力済</label>
+                    <div class="marginT_sp">
+                      <a th:if="${hlgd03014S002DisplayDto.contactInformationFlg != '1'}" th:href="@{${URI_COUNSELING1}+${URI_HLGD03004S003}(targetPersonId=${hlgd03014S002DisplayDto.targetPersonId})}"
+                      class="btn-info" style="padding:4px;">
+                      連絡先
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>事前問診</th>
+                <td>
+                  <!-- code -->
+                  <div class="c-formContentBlock--flex">
+                    <label th:if="${hlgd03014S002DisplayDto.questionnaireFlg == '1'}">入力済</label>
+                    <div class="marginT_sp">
+                      <a th:if="${hlgd03014S002DisplayDto.questionnaireFlg != '1'}" th:href="@{${URI_COUNSELING1}+${URI_HLGD03004S018SheetRecord}(targetPersonId=${hlgd03014S002DisplayDto.targetPersonId}, eventId=${hlgd03014S002DisplayDto.eventId})}"
+                      class="btn-info" style="padding:4px;">
+                      事前問診
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <div class="c-buttonGroup c-buttonGroup--flex">
+  						<a href="#" class="c-textLink u-mt--16 js-modalButton" data-modal="confirmDecline" onclick="confirmDecline()">
+  							<span style="font-size:1.5rem;"> 面談辞退 </span>
+  						</a>
+  					</div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+ 	</form>
+ 	<script>
+ 		function cancelReasonShow() {
+ 			document.getElementById('cancelReason').style.display='';
+ 		}
+
+		function decline() {
+			$('#exampleModalCenterDecline').modal({
+		        keyboard: true,
+		        backdrop: "static"
+			});
+			$('#confirmDecline').modal('hide');
+		}
+
+		function confirmDecline() {
+			$('#confirmDecline').modal({
+		        keyboard: true,
+		        backdrop: "static"
+			});
+		}
+ 	</script>
+
+	<!-- 辞退確認 -->
+  <div class="modal fade" id="confirmDecline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+  			<div class="modal-content">
+          <div class="p-modal__inner">
+					<button type="button" class="p-modal__close js-modalClose" data-dismiss="modal" aria-label="Close">
+					</button>
+  				<div class="p-modal__cont js-modalCont">
+            <h2 class="c-contentTitleBorder">面談辞退確認</h2>
+            <div class="c-leadText u-mt--16">
+              面談辞退をせずに日程変更をお勧めします。 以下より、日程をお選びください。
+            </div>
+            <div class="c-buttonGroup c-buttonGroup--flex u-mt--24">
+              <a th:href="@{${URI_COUNSELING2}+${URI_HLGD03014S001}}">
+                <button type="button" class="c-secondaryButton c-secondaryButton--prev">
+                  日程変更する
+                </button>
+              </a>
+              <a href="javascript:decline();">
+                <button type="button" class="c-primaryShortButton">
+                  面談辞退する
+                </button>
+              </a>
+            </div>
+  				</div>
+  			</div>
+      </div>
+		</div>
+	</div>
+
+
+	<!-- 調整 -->
+	<div class="modal fade" id="exampleModalCenterDecline" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <form method="post"
+                name="myForm"
+                id="myForm"
+                th:action="@{${URI_COUNSELING2}+${URI_HLGD03014S002}+${MAPPING_HLGD03014S002_REGIST}}"
+                th:object="${hlgd03014S002Form}">
+          <div class="p-modal__inner">
+          <button type="button" class="p-modal__close js-modalClose" data-dismiss="modal" aria-label="Close">
+          </button>
+          <div class="p-modal__cont js-modalCont">
+            <h2 class="c-contentTitleBorder">面談辞退</h2>
+            <div class="c-leadText u-mt--16">
+              <font style="color:red;">※</font>
+              万一、やむを得ない理由で面談辞退を希望する場合は　辞退を希望する理由を記載の上、ボタンを押下してください。
+            </div>
+
+            <div class="c-formContentBlock c-formContentBlock--flex">
+              <div class="c-formContentTitle">面談辞退理由：</div>
+              <div class="c-selectGroup c-selectGroup--flex">
+                <div class="c-select c-selectShort">
+                  <select th:field="*{declineReason}" id="scheType">
+    								<option th:each="ele : ${displayDto.declineReasonMap}" th:value="${ele.key}">
+    									[[${ele.value}]]
+    								</option>
+    							</select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="c-leadText u-mt--16">面談辞退理由詳細</div>
+              <textarea th:field="*{declineReasonDetails}" class="c-textarea u-mt--8 spStyle pcStyle"></textarea>
+              <div class="clear"></div>
+            </div>
+            <input type="hidden" name ="interviewNumber" th:value="${hlgd03014S002DisplayDto.interviewNumber}"></input>
+            <div class="c-buttonGroup c-buttonGroup--flex u-mt--24">
+              <button type="button" class="c-secondaryButton c-secondaryButton--prev c-buttonGroup__items" data-dismiss="modal"><span>キャンセル</span></button>
+              <button class="c-primaryShortButton c-buttonGroup__items" id="supportPlaceAddBtn" data-dismiss="modal"><span>面談辞退</span></button>
+            </div>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+	</div>
+
+</div>
+</body>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title>ログイン</title>
+    
+    <style type="text/css">
+        .lable-width {
+            width: 80px;
+        }
+        .input-width {
+            width: 100px;
+        }
+
+    </style> 
+</head>
+
+<body class="loginBody">
+    <div layout:fragment="content">
+-----------------------
+    <div th:if="${'1'=='1'}">1</div>
+    <div th:if="${'1'=='2'}">2</div>
+    <div class="loginMain body-width block-center login-width">
+	    <div style="width:100%;">
+            <div class=" " style="background-color:#a9ceec;">
+                <label class="label-padding">ユーザー</label>
+            </div>
+            <div class=" " style="background-color:#a9ceec;width:220px;">
+                <input type="text">
+            </div>
+        </div>
+        <div>
+            <div class="float-left lable-width">
+                <label class="label-color">パスワード</label>
+            </div>
+            <div class="float-left input-width" >
+                <input type="password">
+            </div>
+	    </div>
+	    <div>
+	    
+	    
+	    </div>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.benefitone.hlgd.counseling2.repository.Hlgd03014S002Repository">
+<!-- 初期化 -->
+<select id="init"
+resultType="jp.co.benefitone.hlgd.counseling2.repository.Hlgd03014S002InitDtoOut">
+SELECT 
+        <!-- 日時S -->
+        to_char(t_interview_info.interview_date,'MM/DD') 
+        || '(' 
+        || case
+        when  to_char(t_interview_info.interview_date,'D') = '1' then '日'
+        when  to_char(t_interview_info.interview_date,'D') = '2' then '月'
+        when  to_char(t_interview_info.interview_date,'D') = '3' then '火'
+        when  to_char(t_interview_info.interview_date,'D') = '4' then '水'
+        when  to_char(t_interview_info.interview_date,'D') = '5' then '木'
+        when  to_char(t_interview_info.interview_date,'D') = '6' then '金'
+        when  to_char(t_interview_info.interview_date,'D') = '7' then '土'
+        end
+        || ') '  
+        || to_char(t_interview_info.support_start_time, 'HH24:MI') 
+        || ' ～ ' 
+        || to_char(t_interview_info.support_end_time, 'HH24:MI') AS implementationDateTime 
+         <!-- 日時E -->
+         <!-- 判断条件S -->
+        , t_target_personal_request.support_place_id
+        , t_interview_info.interview_method
+        , t_interview_info.interview_unit
+        , t_interview_info.support_method
+        , t_target_personal_request.interview_place
+        <!-- 判断条件E -->
+        <!-- 勤務先場所S -->
+        ,  COALESCE(t_target_personal_info.work_postal_code, '')
+        || COALESCE(t_target_personal_info.work_pref, '')
+        || COALESCE(t_target_personal_info.work_city, '')
+        || COALESCE(t_target_personal_info.work_street, '')
+        || COALESCE(t_target_personal_info.work_building, '')
+        || COALESCE(t_target_personal_info.work_office_name, '')
+        || COALESCE(t_target_personal_request.admission_method, '') AS placeNameWork 
+        <!-- 勤務先場所E -->
+        <!-- 自宅場所S -->
+        ,  COALESCE(t_target_personal_info.home_postal_code, '')
+        || COALESCE(t_target_personal_info.home_pref, '')
+        || COALESCE(t_target_personal_info.home_city, '')
+        || COALESCE(t_target_personal_info.home_street, '')
+        || COALESCE(t_target_personal_info.home_building, '') AS placeNameHome 
+        <!-- 自宅場所E -->
+        <!-- その他場所S --> 
+        , COALESCE(t_target_personal_request.postal_code, '')
+        || COALESCE(t_target_personal_request.prefectures, '') 
+        || COALESCE(t_target_personal_request.municipality, '') 
+        || COALESCE(t_target_personal_request.street_address, '') 
+        || COALESCE(t_target_personal_request.building_name, '') 
+        || COALESCE(t_target_personal_request.store_name_etc, '')  AS placeNameOther
+        <!-- その他場所E --> 
+        ,t_target_personal_request.building_name roomName
+        ,t_target_personal_info.is_entered_qualified
+        ,case when COALESCE(t_target_personal_info.document_destination, '') != '' then '1' end as isContact
+        ,t_interview_info.update_datetime
+    FROM t_interview_info 
+         INNER JOIN t_target_personal_request 
+              ON t_interview_info.request_id = t_target_personal_request.request_id 
+         INNER JOIN t_target_personal_info 
+              ON t_interview_info.target_person_id = t_target_personal_info.target_person_id 
+    <where>
+        t_interview_info.target_person_id = #{targetPersonId}
+        AND t_interview_info.event_id = #{eventId}
+        AND t_interview_info.delete_flg = 0
+    </where>
+</select>
+
+<select id="lockTInterviewRecord"
+resultType="jp.co.benefitone.hlgd.counseling2.repository.Hlgd03014S002DeclineInterviewInfoDtoIn">
+SELECT 
+    update_datetime updateDatetimeInterview
+FROM
+    t_interview_record
+WHERE
+     target_person_id = #{targetPersonId}
+     AND event_id = #{eventId}
+FOR UPDATE NOWAIT;
+</select>
+
+<select id="lockTInterviewInfo"
+resultType="jp.co.benefitone.hlgd.counseling2.repository.Hlgd03014S002DeclineInterviewInfoDtoIn">
+SELECT 
+    request_id
+FROM
+    t_interview_info
+WHERE
+     target_person_id = #{targetPersonId}
+     AND event_id = #{eventId}
+FOR UPDATE NOWAIT;
+</select>
+
+<select id="lockTTargetPersonalRequest"
+resultType="jp.co.benefitone.hlgd.counseling2.repository.Hlgd03014S002DeclineInterviewInfoDtoIn">
+SELECT 
+    update_datetime updateDatetimeInterview
+FROM
+    t_target_personal_request
+WHERE
+     request_id = #{requestId}
+FOR UPDATE NOWAIT;
+</select>
+
+<update id="updateTInterviewRecord"
+useGeneratedKeys="true"
+parameterType="jp.co.benefitone.hlgd.counseling2.repository.Hlgd03014S002DeclineInterviewInfoDtoIn">
+<bind name="userId" value="@jp.co.benefitone.hlgd.common.utils.UserUtil@getUserId()"/>
+<bind name="processId" value="@jp.co.benefitone.hlgd.common.utils.UserUtil@getProcessId()"/>
+UPDATE t_interview_record
+SET 
+	decline_reason = #{declineReason}
+    ,decline_reason_details = #{declineReasonDetails}
+    ,decline_datetime = LOCALTIMESTAMP
+    ,update_datetime = LOCALTIMESTAMP
+    ,update_user = #{userId}
+    ,update_process = #{processId}
+WHERE
+     target_person_id = #{targetPersonId}
+     AND event_id = #{eventId}
+</update>
+
+<update id="abolitionTInterviewInfo"
+useGeneratedKeys="true"
+parameterType="jp.co.benefitone.hlgd.counseling2.repository.Hlgd03014S002DeclineInterviewInfoDtoIn">
+<bind name="userId" value="@jp.co.benefitone.hlgd.common.utils.UserUtil@getUserId()"/>
+<bind name="processId" value="@jp.co.benefitone.hlgd.common.utils.UserUtil@getProcessId()"/>
+UPDATE t_interview_info
+SET     
+    delete_flg = 1
+    ,update_datetime = LOCALTIMESTAMP
+    ,update_user = #{userId}
+    ,update_process = #{processId}
+WHERE
+     target_person_id = #{targetPersonId}
+     AND event_id = #{eventId}
+</update>
+
+<update id="abolitionTTargetPersonalRequest"
+useGeneratedKeys="true"
+parameterType="jp.co.benefitone.hlgd.counseling2.repository.Hlgd03014S002DeclineInterviewInfoDtoIn">
+<bind name="userId" value="@jp.co.benefitone.hlgd.common.utils.UserUtil@getUserId()"/>
+<bind name="processId" value="@jp.co.benefitone.hlgd.common.utils.UserUtil@getProcessId()"/>
+UPDATE t_target_personal_request
+SET
+    delete_flg = 1
+    ,update_datetime = LOCALTIMESTAMP
+    ,update_user = #{userId}
+    ,update_process = #{processId}
+WHERE
+     request_id = #{requestId}
+</update>
+</mapper>

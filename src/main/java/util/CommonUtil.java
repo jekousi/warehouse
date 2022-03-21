@@ -6,8 +6,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 
 public class CommonUtil {
-    
-    
+        
         public static String encode(String str) throws Exception {
         
         if (ObjectUtils.isEmpty(str)) {

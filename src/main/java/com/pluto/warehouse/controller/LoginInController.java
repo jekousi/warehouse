@@ -1,12 +1,10 @@
 package com.pluto.warehouse.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.pluto.warehouse.constant.UrlConstant;
-import com.pluto.warehouse.service.LoginService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoginInController {
     
-    @Autowired
-    private LoginService loginService;
+//    @Autowired
+//    private LoginService loginService;
 
 	@GetMapping(UrlConstant.URL_LOGIN)
 	public String init(Model model) {
@@ -30,7 +28,7 @@ public class LoginInController {
 	    
 	    model.addAttribute("message", "目ss－次");
 	    
-	    loginService.login();
+//	    loginService.login();
 	    
 		return UrlConstant.VIEWID_LOGIN;
 	}
